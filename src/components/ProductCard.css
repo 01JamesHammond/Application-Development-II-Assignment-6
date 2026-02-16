@@ -1,0 +1,29 @@
+/*Had AI help with coloring, even on other boxes. Heavily help with the product-card border and radius.
+I had it suggest padding and margin, but that was on my own. Mostly guess and check for the rest.*/
+.product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px;
+  max-width: 300px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.product-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.product-card h3 {
+  margin: 12px 0;
+  color: #333;
+}
+
+.product-card p {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
