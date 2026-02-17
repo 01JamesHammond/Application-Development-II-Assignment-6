@@ -1,13 +1,14 @@
 import './App.css'
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
+import Favorites from './pages/Favorites';
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import CartPage from "./pages/CartPage";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { useEffect, useState } from 'react'; // Update to import useEffect
+import { searchMovies } from './services/movieService';
 
 
 function App() { 
@@ -58,10 +59,14 @@ function App() {
 
   
 
-const [cart, setCart] = useState(() => {
+  const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem('cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
+
+  //asfdasdf
+  const [searchResults, setSearchResults] = useState(null);
+
 
   // Save to localStorage whenever cart changes
   useEffect(() => {
@@ -71,6 +76,12 @@ const [cart, setCart] = useState(() => {
       console.warn('Could not save cart to localStorage:', error);
     }
   }, [cart]);
+
+  //asdfasdfa
+  const handleSearch = async (query) => {
+    const results = await searchMovies(query);
+    setSearchResults(results);
+  };
 
 
   const addToCart = (product) => {
@@ -94,10 +105,14 @@ const [cart, setCart] = useState(() => {
           <Header
             storeName="ComponentCorner"
             cartCount={cart.length}
+            //asfdasfasdf
+            onSearch={handleSearch}
+
           />
 
           <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/" element={<HomePage searchResults={searchResults} />} />
           <Route path="/products" 
             element={
               <ProductsPage 

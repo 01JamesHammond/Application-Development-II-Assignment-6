@@ -1,6 +1,21 @@
+import { useState, useEffect } from 'react';
+import { getPopularMovies } from '../services/movieService';
+import MovieCard from '../components/MovieCard';
 import Hero from "../components/Hero";
 
 function HomePage() {
+  // Taken from resource 1, updated for movies
+  const [movies, setMovies] = useState([]);
+  
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const movieData = await getPopularMovies();
+      setMovies(movieData);
+    };
+  
+    fetchMovies();
+  }, []); 
+
   return (
     <>
       <Hero 
@@ -16,7 +31,13 @@ function HomePage() {
           We pride ourselves on quality, speed, and premium customer service. 
           Browse our collection today to find the perfect gear for your setup!
         </p>
-      </div>
+      </div>      
+
+        <div className="movie-grid">
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))}
+        </div>
     </>
   );
 }
